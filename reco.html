@@ -1,0 +1,257 @@
+<!DOCTYPE HTML>
+<!-- Code Author: Aabhas Sharma -->
+
+<html>
+<head>
+	<meta content="text/html, initial-scale=1.0, user-scalable=yes; charset=utf-8" http-equiv="Content-Type" />
+	<title>TheAltruist</title>
+	<meta content="" name="description" />
+	<meta content="" name="keywords" /><!--[if lte IE 8]><script src="css/ie/html5shiv.js"></script><![endif]--><script src="js/jquery.min.js"></script><script src="js/jquery.scrollzer.min.js"></script><script src="js/jquery.scrolly.min.js"></script><script src="js/skel.min.js"></script><script src="js/skel-layers.min.js"></script><script src="js/init.js"></script>
+	<link href="favicon_5.ico" rel="shortcut icon" type="image/x-icon" /><noscript>
+			<link rel="stylesheet" href="css/skel.css" />
+			<link rel="stylesheet" href="css/style.css" />
+			<link rel="stylesheet" href="css/style-xlarge.css" />
+		</noscript><!--[if lte IE 8]><link rel="stylesheet" href="css/ie/v8.css" /><![endif]-->
+	<style type="text/css">
+	    html, body, #map-canvas { height: 750px; margin: 0; padding: 20px;}
+	</style>
+	<script src="main.js"></script>
+	<script>
+		var cause1 = localStorage.getItem("Altruist-CurrUser-cause1");
+		Dynamite_algorithm();
+	</script>
+</head>
+
+	<body>
+	<div id="wrapper"><!-- Header -->
+		<section class="skel-layers-fixed" id="header">
+			<header><span class="image avatar"><img alt="" src="images/avatar6.jpg" /></span>
+			<h1 id="logo"></h1>
+			<script>
+				var logo = localStorage.getItem("Altruist-CurrUser-name");
+				$('#logo').html(logo);
+			</script>
+			</header>
+			<!-- Navigation Menu -->
+			<nav id="nav">
+			<ul>
+				<li><a href="donate.html">Donate</a></li>
+				<li><a href="shortlisted.html">Your Beneficiaries</a></li>
+				<li><a href="#" class="active">Our Recommendations</a></li>
+				<li><a href="profile.html">Profile</a></li>
+				<li><a href="index.html">Logout</a></li>
+			</ul>
+			</nav>
+			<!-- Footer Menu -->
+			<footer>
+				<ul class="icons">
+					<li><a href="www.twitter.com" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+					<li><a href="www.facebook.com" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+					<li><a href="www.instagram.com" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
+					<li><a href="http://www.reddit.com/r/funny/" class="icon fa-github"><span class="label">Github</span></a></li>
+					<li><a href="mailto:asharm36@illinois.edu" class="icon fa-envelope"><span class="label">Email</span></a></li>
+				</ul>
+			</footer>
+		</section>
+	</div>
+
+		<!-- Recommendations title -->
+		<section>
+		<div>
+			<h2><font color = "#4acaa8">TheAltruist Recommends</font></h2>
+			<!--<button onclick="showPosition()">Show Map</button>-->
+		</div>
+
+
+		<!-- Google Maps API -->
+		<div id="map-canvas"></div>
+		<p id="demo"></p>
+			
+			<!-- Load Google Maps API -->
+			<script type="text/javascript"
+			    src="https://maps.googleapis.com/maps/api/js?v=3.exp">
+			</script>
+		    
+			<!-- Google Maps API Operations     -->
+		    <script>
+				var x = document.getElementById("demo");	
+				var map;
+				var marker;
+				var all_recvr = JSON.parse(localStorage["Recommendations"]);
+				var recvr_index = 0;
+				var directionsService;
+				var directionsDisplay;
+				//info window - string concatanation
+			    var str1 = all_recvr[recvr_index][1];
+			    var str2 = "\n";
+			    str1 = str1.concat(str2);
+			    str1 = str1.concat("Description: ");
+			    var contentString =  str1.concat(all_recvr[recvr_index][6]);
+
+			    var infowindow = new google.maps.InfoWindow({
+				content: contentString
+				});
+
+			    //get receiver's current location (basis IP address)
+				function getLocation() {
+				    if (navigator.geolocation) {
+				        navigator.geolocation.getCurrentPosition(showPosition, showError);
+				    } else { 
+				        x.innerHTML = "Geolocation is not supported by this browser.";
+				    }
+				}
+				
+				//update receiver location each time a new receiver is clicked on
+				function location_update(curr_recvr)
+				{
+					var selected_recvr = curr_recvr.innerHTML;
+					var temp = selected_recvr.split(".");
+					
+					recvr_index = temp[0] - 1;
+					str1 = all_recvr[recvr_index][1];
+					str2 = '<br>';
+				   	str1 = str1.concat(str2);
+					str1 = str1.concat("Cause: ");
+				    	contentString =  str1.concat(all_recvr[recvr_index][8]);
+				    	str1 = contentString.concat(str2);
+				    	str1 = str1.concat("Description: ");
+				    	contentString =  str1.concat(all_recvr[recvr_index][6]);
+					//alert(all_recvr[recvr_index][3] + " description: " + all_recvr[recvr_index][6]);
+					//alert(contentString);
+					geocode(all_recvr[recvr_index][3]);
+				}
+
+				//basis location calculations, set markers, infowindow content as well as route calculations
+				function geocode(string){
+				    //setAllMap(null);
+				    var geocoder = new google.maps.Geocoder();
+				    marker.setMap(null);
+				    geocoder.geocode( { 'address': string}, function(results, status) {
+				      if (status == google.maps.GeocoderStatus.OK) {
+				        map.setCenter(results[0].geometry.location);
+				    		//infowindow.close(map,marker);
+				    		infowindow.setContent(contentString);
+				        	marker = new google.maps.Marker({map: map,position: results[0].geometry.location,title: string});
+
+							//google.maps.event.addListener(marker, 'click', function() {
+							    infowindow.open(map,marker);
+							    calcRoute(results[0].geometry.location, latlon);
+							 // });
+				      } else {
+				        alert("Geocode was not successful for the following reason: " + status);
+				      }
+				    });
+				 }
+
+				//calculate location and embed on map
+				function showPosition(position) {
+				    lat = position.coords.latitude;
+				    lon = position.coords.longitude;
+				    directionsService = new google.maps.DirectionsService();
+				    localStorage.setItem("User-lat", lat);
+				    localStorage.setItem("User-lon", lon);
+				    //lat = 40.115082;
+				    //lon = -88.228150;
+				    latlon = new google.maps.LatLng(lat, lon)
+				    //latlon1 = new google.maps.LatLng(-25.363882,131.044922)
+				    mapholder = document.getElementById('map-canvas')
+				    mapholder.style.height = '400px';
+				    mapholder.style.width = '900px';
+
+				    var myOptions = {
+				    center:latlon,zoom:15,
+				    mapTypeId:google.maps.MapTypeId.HYBRID,
+				    mapTypeControl:false,
+				    navigationControlOptions:{style:google.maps.NavigationControlStyle.SMALL}
+				    }
+				    
+					    directionsDisplay = new google.maps.DirectionsRenderer();
+				    map = new google.maps.Map(document.getElementById("map-canvas"), myOptions);
+				    marker = new google.maps.Marker({position:latlon,map:map,title:"Home"});
+				    var contentString = '<div id="content">'+
+					      '<div id="siteNotice">'+
+					      '</div>';
+
+					  var infowindow = new google.maps.InfoWindow({
+					      content: contentString
+					  })
+
+				    //var address = document.getElementById('address').value;
+					//geocode("University of Illinois");			    
+
+				directionsDisplay.setMap(map);
+					   google.maps.event.addListener(marker, 'click', function() {
+					    infowindow.open(map,marker);
+					  });
+				    //var Aussie = new google.maps.Marker({position:latlon1,map: map,title: 'Gday mate!'});
+				}
+
+				//in case of error, display as below
+				function showError(error) {
+				    switch(error.code) {
+				        case error.PERMISSION_DENIED:
+				            x.innerHTML = "User denied the request for Geolocation."
+				            break;
+				        case error.POSITION_UNAVAILABLE:
+				            x.innerHTML = "Location information is unavailable."
+				            break;
+				        case error.TIMEOUT:
+				            x.innerHTML = "The request to get user location timed out."
+				            break;
+				        case error.UNKNOWN_ERROR:
+				            x.innerHTML = "An unknown error occurred."
+				            break;
+				    }
+				}
+				
+				//calculates the route from user to selected receiver
+				function calcRoute(start, end) {
+					var request = {
+						origin:start,
+						destination:end,
+						travelMode: google.maps.TravelMode.DRIVING
+						};
+						//alert(1);
+					directionsService.route(request, function(response, status) {
+					if (status == google.maps.DirectionsStatus.OK) {
+						//alert(5);
+						directionsDisplay.setDirections(response);
+						}
+					});
+				}
+			</script>
+			
+			<!-- Perform Location Calculations -->
+			<script>
+				getLocation();
+				//showPosition();
+			</script>
+
+			<div>
+				<h5>List of receivers ranked by their level of need and proximity to you</h5>
+				<h5>By clicking on shortlist, that particular receiver would get added to your list of Beneficiaries.<br></h5>
+			</div>
+			<div style="overflow:auto; height:500px; width:895px">
+			<table id="recomend_li">
+			<tr>
+				<th>Receiver Name</th>
+				<th>Distance</th>
+				<th></th>
+				<th>(click on field)</th>
+			</tr>
+			</table>
+			</div>
+		</section>
+<!-- End of Google Maps API -->
+
+<!-- Footer -->
+		<section id="footer">
+			<div class="container">
+			<ul class="copyright">
+				<li>&copy; Halwai. All rights reserved.</li>
+				<li>We are: <a href="https://wiki.cites.illinois.edu/wiki/display/cs411sp15/Team+Firebolt">Team Firebolt</a></li>
+			</ul>
+			</div>
+		</section>
+	</body>
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE HTML>
+<!-- Code Author: Aabhas Sharma -->
+
+<html>
+	<head>
+		<title>Team Firebolt</title>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<meta name="description" content="" />
+		<meta name="keywords" content="" />
+		<!--[if lte IE 8]><script src="css/ie/html5shiv.js"></script><![endif]-->
+		<script src="js/jquery.min.js"></script>
+		<script src="js/jquery.scrollzer.min.js"></script>
+		<script src="js/jquery.scrolly.min.js"></script>
+		<script src="js/skel.min.js"></script>
+		<script src="js/skel-layers.min.js"></script>
+		<script src="js/init.js"></script>
+		<link rel="shortcut icon" href="favicon_5.ico" type="image/x-icon">
+		<noscript>
+			<link rel="stylesheet" href="css/skel.css" />
+			<link rel="stylesheet" href="css/style.css" />
+			<link rel="stylesheet" href="css/style-xlarge.css" />
+		</noscript>
+		
+		<script type="text/javascript">
+        		//incomplete script -> contact form to email.
+        		window.onload = function()
+							{
+								var a = document.getElementById("form");
+								$.ajax({
+                    				type: 'POST',
+                    				url: "email.php",
+                    				data: $("form").serialize(),
+                    				success: function() {
+	                    				alert("Thank you for reaching out to us! We will get back to you as soon as possible.");
+										$('form').hide( "slow" );
+	                        			$("#thankyou").fadeIn( "slow" );
+                    				}
+                			});	
+							return false;
+				}
+    	</script>
+	</head>
+
+	<body>
+		<div id="wrapper">
+
+			<!-- Header -->
+				<section id="header" class="skel-layers-fixed">
+					<header>
+						<span class="image avatar"><img src="images/avatar6.jpg" alt="" /></span>
+						<h1 id="logo"><a href="index.html">Team Firebolt</a></h1>
+						<p>We usually mess everything up<br />
+						but we'll get this working<br />
+						..hopefully
+						</p>
+					</header>
+
+					<!-- Navigation Menu -->
+					<nav id="nav">
+						<ul>
+							<li><a href="login.html">Login</a></li>
+							<li><a href="#one" class="active">About the project</a></li>
+							<li><a href="#four">Contact</a></li>
+						</ul>
+					</nav>
+
+					<!-- Footer Menu -->
+					<footer>
+						<ul class="icons">
+							<li><a href="www.twitter.com" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+							<li><a href="www.facebook.com" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+							<li><a href="www.instagram.com" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
+							<li><a href="www.reddit.com/r/funny/" class="icon fa-github"><span class="label">Github</span></a></li>
+							<li><a href="mailto:asharm36@illinois.edu" class="icon fa-envelope"><span class="label">Email</span></a></li>
+						</ul>
+					</footer>
+				</section>
+
+			<!-- Main -->
+				<div id="main">
+
+					<!-- About The Altruist -->
+						<section id="one">
+							<div class="container">
+								<header class="major">
+									<h2>The Altruist</h2>
+									<p>Willing to donate? Find people around you who are in need.<br />
+									</p>
+									<p>This application acts as a means for any person willing to donate to identify a family/person in need. Based on the users' location and causes they care about, TheAltruist locates families/people that could use the donor's assistance. The information on the people in need is provided by the various NGOs across the globe. The user must simply sign up to use this application!
+									<br><br>
+									The motivation behind our idea is simple- we want to empower everyone with the ability to see the difference that a simple gesture can make. Rather than donating to an NGO and never finding out what happened of it, this application is a more tangible way to be charitable; <br><b><font color = "#4acaa8">A personal touch to the kind act of helping another person in need!</font></b></p>
+								</header>
+							</div>
+						</section>
+						
+					<!-- Contact Us -->
+					
+						<section id="four">
+							<div class="container">
+								<h3>Contact Us</h3>
+								<p>Feel free to enter your information below. We will reach out to you as soon as possible.</p>
+								<form method="post" action="mailto:asharm36@illinois.edu" id="form">
+									<div class="row uniform collapse-at-2">
+										<div class="6u"><input type="text" name="name" id="name" placeholder="Name" /></div>
+										<div class="6u"><input type="email" name="email" id="email" placeholder="Email" /></div>
+									</div>
+									<div class="row uniform">
+										<div class="12u"><input type="text" name="subject" id="subject" placeholder="Subject" /></div>
+									</div>
+									<div class="row uniform">
+										<div class="12u"><textarea name="message" id="message" placeholder="Message" rows="6"></textarea></div>
+									</div>
+									<div class="row uniform">
+										<div class="12u">
+											<ul class="actions">
+												<li><input type="submit" class="special" value="Send Message" /></li>
+												<li><input type="reset" value="Reset Form" /></li>
+											</ul>
+										</div>
+									</div>
+								</form>
+							</div>
+						</section>
+					
+				</div>
+
+			<!-- Footer -->
+				<section id="footer">
+					<div class="container">
+						<ul class="copyright">
+							<li>&copy; Halwai. All rights reserved.</li><li>We are: <a href="https://wiki.cites.illinois.edu/wiki/display/cs411sp15/Team+Firebolt">Team Firebolt</a></li>
+						</ul>
+					</div>
+				</section>
+			
+		</div>
+	</body>
+</html>

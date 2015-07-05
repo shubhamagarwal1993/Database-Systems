@@ -1,0 +1,125 @@
+<!DOCTYPE HTML>
+<!-- Code Author: Aabhas Sharma -->
+
+<html>
+	<head>
+		<title>Team Firebolt</title>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<meta name="description" content="" />
+		<meta name="keywords" content="" />
+		<!--[if lte IE 8]><script src="css/ie/html5shiv.js"></script><![endif]-->
+		<script src="js/jquery.min.js"></script>
+		<script src="js/jquery.scrollzer.min.js"></script>
+		<script src="js/jquery.scrolly.min.js"></script>
+		<script src="js/skel.min.js"></script>
+		<script src="js/skel-layers.min.js"></script>
+		<script src="js/init.js"></script>
+		<script src="main.js"></script>
+		<link rel="shortcut icon" href="favicon_5.ico" type="image/x-icon">
+		<noscript>
+			<link rel="stylesheet" href="css/skel.css" />
+			<link rel="stylesheet" href="css/style.css" />
+			<link rel="stylesheet" href="css/style-xlarge.css" />
+		</noscript>
+		<script>
+			if (getUrlParameter("update") == 1 )
+			{
+				var up_name = localStorage.getItem("Altruist-CurrUser-username");
+				send_update(up_name);
+			}
+			else if(getUrlParameter("update") == 0)
+				alert("User created successfully, login to continue!");
+		</script>
+		<script>
+							window.onload = function()
+							{
+								var a = document.getElementById("logoff");
+								a.onclick = function()
+								{
+									alert("Logging out");
+									localstorage.clear();
+								}
+								return false;
+							}
+		</script>
+		<!--[if lte IE 8]><link rel="stylesheet" hef="css/ie/v8.css" /><![endif]-->
+		<script>
+			shortlist();
+		</script>
+	</head>
+	<body>
+		<div id="wrapper">
+			<!-- Header -->
+				<section id="header" class="skel-layers-fixed">
+					<header>
+						<span class="image avatar"><img src="images/avatar6.jpg" alt="" /></span>
+						<h1 id="logo"><a href="#"></a></h1>
+						<script>
+							var logo = localStorage.getItem("Altruist-CurrUser-name");
+							$('#logo').html(logo);
+						</script>
+					</header>
+					<nav id="nav">
+						<ul>
+							<!--<li><a href="#"><font color = "FF8000">Login </font></a></li>-->
+							<li><a href="donate.html">Donate!</a></li>
+							<li><a href="#" class="active">Your Beneficiaries</a></li>
+							<li><a href="reco.html">Our Recommendations</a></li>
+							<li><a href="profile.html">Profile</a></li>
+							<li><a id="logoff" href="index.html">Logout</a></li>	
+						</ul>
+					</nav>
+					<footer>
+						<ul class="icons">
+							<li><a href="www.twitter.com" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+							<li><a href="www.facebook.com" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+							<li><a href="www.instagram.com" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
+							<li><a href="www.reddit.com/r/funny/" class="icon fa-github"><span class="label">Github</span></a></li>
+							<li><a href="mailto:asharm36@illinois.edu" class="icon fa-envelope"><span class="label">Email</span></a></li>
+						</ul>
+					</footer>
+				</section>
+			
+					
+						<section id="four">
+							<div id = "recvr_li" class="container">
+								<p><br><br><br></p>
+									<h3><font color="#4acaa8"> People you have shortlisted </font> <br><br></h3>
+									<p><font color="#33CCCC">Note</font>: TheAltruist only helps you identify receivers. You must contact them on your own. </p>
+									<!--<p><br><br><br><br></p>-->
+									<script>
+										var beneficiaries = JSON.parse(localStorage["Beneficiaries"]);
+										//alert(beneficiaries);
+										var count = 0;
+										$.each(beneficiaries, function(index, value)
+										{
+											var index = count + 1;
+											$("#recvr_li").append('<h4>'+ '<font color = "#4acaa8">' + index + ". " + beneficiaries[count][1] + '</font>' + '</h4>'
+																	+ '<p>' + "Cause: " + beneficiaries[count][8] + '</p>'
+																	+ '<p>' + '<font color="#ff8000">' + "Description: " + '</font>' + '</p>'
+																	+ '<p>' + "Situation: " + beneficiaries[count][6] + '</p>'
+																	+ '<p>' + "Income Range: " + beneficiaries[count][7] + '</p>'
+																	+ '<p>' + '<font color="#ff8000">' + "Contact Info:" + '</font>' + '</p>'
+																	+ '<p>' + "Address: " + beneficiaries[count][3] + '</p>'
+																	+ '<p>' + "Phone Number: " + beneficiaries[count][2] + '<br>' + '<br>' + '</p>');
+											count++;
+										});
+									</script>
+						
+							</div>
+						</section>
+					
+				</div>
+
+			<!-- Footer -->
+				<section id="footer">
+					<div class="container">
+						<ul class="copyright">
+							<li>&copy; Halwai. All rights reserved.</li><li>We are: <a href="https://wiki.cites.illinois.edu/wiki/display/cs411sp15/Team+Firebolt">Team Firebolt</a></li>
+						</ul>
+					</div>
+				</section>	
+			
+		</div>
+	</body>
+</html>

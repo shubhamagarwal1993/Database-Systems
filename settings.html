@@ -1,0 +1,159 @@
+<!DOCTYPE HTML>
+<!-- Code Author: Aabhas Sharma -->
+
+<html>
+<head>
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+	<title>TheAltruist</title>
+	<meta content="" name="description" />
+	<meta content="" name="keywords" /><!--[if lte IE 8]><script src="css/ie/html5shiv.js"></script><![endif]--><script src="js/jquery.min.js"></script><script src="js/jquery.scrollzer.min.js"></script><script src="js/jquery.scrolly.min.js"></script><script src="js/skel.min.js"></script><script src="js/skel-layers.min.js"></script><script src="js/init.js"></script>
+	<link href="favicon_5.ico" rel="shortcut icon" type="image/x-icon" />
+		<noscript>
+			<link rel="stylesheet" href="css/skel.css" />
+			<link rel="stylesheet" href="css/style.css" />
+			<link rel="stylesheet" href="css/style-xlarge.css" />
+		</noscript><!--[if lte IE 8]><link rel="stylesheet" href="css/ie/v8.css" /><![endif]-->
+		<script src="main.js"></script>
+		<script>
+							window.onload = function()
+							{
+								var a = document.getElementById("logoff");
+								a.onclick = function()
+								{
+									alert("Logging out");
+									localstorage.clear();
+								}
+								return false;
+							}
+		</script>
+</head>
+
+	<body>
+	<div id="wrapper"><!-- Header -->
+		<section class="skel-layers-fixed" id="header">
+			<header><span class="image avatar"><img alt="" src="images/avatar6.jpg" /></span>
+			<h1 id="logo"></h1>
+			<script>
+				var logo = localStorage.getItem("Altruist-CurrUser-name");
+				$('#logo').html(logo);
+			</script>
+			</header>
+			<!-- Navigation Menu -->
+			<nav id="nav">
+			<ul>
+				<li><a href="donate.html">Donate!</a></li>
+				<li><a href="profile.html">Profile</a></li>
+				<li><a class="active" href="#" class="active">Update info</a></li>
+				<li><a id="logoff" href="index.html">Logout</a></li>
+			</ul>
+			</nav>
+		</section>
+
+
+		<section id="four">
+			<div class="container"><br />
+			<br />
+			<br />
+
+			<h2><font color="#4acaa8">Update Account Information</font></h2>
+
+			<form name="settings" id="settings" method="post" action="updatedb.php">
+				<div class="row uniform">
+				<div class="6u"><input id="name" name="name" plac	eholder="You can't see me" type="hidden" /></div>
+				</div>
+
+				<div class="row uniform">
+				<div class="6u"><select id="cause" name="cause">
+					<option disabled="disabled" selected="selected">Causes you care about</option>
+					<option value="Health">Health</option>
+					<option value="Education">Education</option>
+					<option value="Disabilities">Disabilities</option>
+					<option value="Environment">Environment</option>
+					 </select>
+				</div>
+				</div>
+				
+				<br><h5>Phone Number (xxx)-xxx-xxxx</h5>
+				<div class="row uniform collapse-at-2">
+				<div class="6u"><input id="phone" name="phone" placeholder="Phone Number (xxx)-xxx-xxxx" type="text" /></div>
+				</div>
+
+				<br><h5>Password</h5>
+				<div class="row uniform collapse-at-2">
+				<div class="6u"><input id="password" name="password" placeholder="Password" type="text" /></div>
+				</div>
+
+				<br><h5>Email ID</h5>
+				<div class="row uniform">
+				<div class="12u"><input id="email" name="email" placeholder="Email ID" type="email" /></div>
+				</div>
+
+				<br><h5>Address</h5>
+				<div class="row uniform">
+				<div class="12u"><textarea id="address" name="address" placeholder="Address" rows="3"></textarea></div>
+				</div>
+
+				<div class="row uniform">
+				<div class="12u">
+				<ul class="actions">
+					<li><input class="special" type="submit" value="Submit" /></li>
+				</ul>
+					
+					<script>
+						//pre-filling text fields
+						var curr_cause1 = localStorage.getItem("Altruist-CurrUser-cause1");
+						$('#cause').val(curr_cause1);
+
+						var curr_username = localStorage.getItem("Altruist-CurrUser-username");
+						$('#name').val(curr_username);
+
+						var curr_phone = localStorage.getItem("Altruist-CurrUser-phone");
+						$('#phone').val(curr_phone);
+						
+						var curr_email = localStorage.getItem("Altruist-CurrUser-email");
+						$('#email').val(curr_email);
+						
+						var curr_password = localStorage.getItem("Altruist-CurrUser-password");
+						$('#password').val(curr_password);
+						
+						var curr_address = localStorage.getItem("Altruist-CurrUser-address");
+						$('#address').val(curr_address);
+						
+					</script>
+				</div>
+				</div>
+			</form>
+			</div>
+		</section>
+
+	<section id="two">
+		<div class="container">
+			<form name="remove" id="remove" method="post" action="delete.php">
+			<div class="6u">
+					<ul class="actions">
+						<li><p><br> Want to leave the Altruist? Click below.</p></li>
+						<li><input class="special" style="background-color:red" type="submit" value="Remove Account" /></li>
+						<div class="row uniform">
+							<div class="6u"><input id="rem_name" name="rem_name" placeholder="You can't see me" type="hidden" /></div>
+						</div>
+					<script>
+						var rem_username = localStorage.getItem("Altruist-CurrUser-username");
+						$('#rem_name').val(rem_username);
+					</script>
+					</ul>
+			</div>
+		</form>
+		</div>
+	</section>
+
+	<!-- Footer -->
+	<section id="footer">
+	<div class="container">
+	<ul class="copyright">
+		<li>&copy; Halwai. All rights reserved.</li>
+		<li>We are: <a href="https://wiki.cites.illinois.edu/wiki/display/cs411sp15/Team+Firebolt">Team Firebolt</a></li>
+	</ul>
+	</div>
+	</section>
+	</body>
+</html>
