@@ -1,6 +1,15 @@
 # Database-Systems
 web applications for crowd funding
 
+Done in a group of 4. 
+This application enables a donars to pay for a cause they support like for medicines, books, clothing, education.
+The donor can identify a family/person in need and based on the user's location and causes, TheAltruist locates families/people that could use assistance.
+The information on the people in need is provided by various NGOs across the globe.
+
+The motivation behind our idea is simple- we want to empower everyone with the ability to see the difference that a simple gesture can make. Rather than donating to an NGO and never finding out what happened of it, you can actually give the money directly to the person and since this person happens to be in your neighborhood, you can see the change. 
+
+A personal touch to the kind act of helping another person in need!
+
 HTML Files
 
 index.html - home page
@@ -23,3 +32,4 @@ shortlist.php - supports receiver shortlisting functionalities
 Javascript Files
 
 main.js - contains all Javascript helper functions used throughout the code base
+												credit goes to my friends aabhas sharma, siddharth murali, and sammy.
